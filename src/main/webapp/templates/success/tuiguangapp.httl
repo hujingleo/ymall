@@ -1,0 +1,257 @@
+<!--#set(Map<String,Object> map)-->
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>认证成功</title>
+<link rel="stylesheet" href="../../css/tuiguangapp.css" type="text/css"></link>
+</head>
+<body>
+
+	<div class="main">
+		<div class="banner"><a href="https://wap.koudaitong.com/v2/showcase/homepage?alias=c7zk3z96"></a></div>
+		<div class="list">
+			<ul id="appul">
+				
+				
+				
+				
+			</ul>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="../../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+var imageip = "${map.get('imageip')}";
+
+var browser = {
+		versions: function () {
+			var u = navigator.userAgent, app = navigator.appVersion;
+			return {//移动终端浏览器版本信息
+				trident: u.indexOf('Trident') > -1, //IE内核
+				presto: u.indexOf('Presto') > -1, //opera内核
+				webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+				gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+				mobile: !!u.match(/AppleWebKit.*Mobile/i) || !!u.match(/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/), //是否为移动终端
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+				android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+				iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+				iPad: u.indexOf('iPad') > -1, //是否iPad
+				webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+			};
+		}(),
+		language: (navigator.browserLanguage || navigator.language).toLowerCase()
+};
+
+var btype = checkBrowserType();//设备类型,ios, android,pc
+
+$(document).ready(function () {
+
+	queryAllTuiGuangApps();
+});
+
+
+function queryAllTuiGuangApps()
+{
+	var r = Math.floor(Math.random() * 9999 + 1);
+	var params = {r:r};
+	var url = "../rest/tuiguangapp/queryAllTuiguangAppsForApp";
+	$.getJSON(url,params,function(data) {
+		if(1 != data.result)
+		{
+			window.location='http://www.reafor.cn';
+		}
+	 	data = data.data;
+	 	var types = data.types;
+	 	var itemMap = data.itemMap;
+	 	
+	 	var content = "";
+	 	for(var i = 0; i < types.length; i++)
+	 	{
+	 		var item = itemMap[types[i]];//app列表
+	 		var itemcontent = "<li><h3>"+types[i]+"</h3>";
+	 			
+	 		var app_content_flfr = "fl";
+	 		var itemyouxiaonum = 0;
+	 		for(var j = 0; j < item.length; j++)//类型下每个app
+	 		{
+	 			var appitem = item[j];
+	 			//检查当前是什么设备,如果是安卓或io要检查下载地址是否为空
+	 			if("android"== btype && isEmpty(appitem.androidurl))
+	 			{
+	 				continue;
+	 			}
+	 			if("ios"== btype && isEmpty(appitem.iosurl))
+	 			{
+	 				continue;
+	 			}
+	 			itemyouxiaonum++;
+		 		
+	 			itemcontent +="<div class='app-list'>"+
+						"<div class='app-content "+app_content_flfr+"'>"+
+							"<div class='name'>"+
+								"<div class='app-icon'>"+
+									"<img src='"+imageip+appitem.logo+"'/>"+
+								"</div>"+
+								"<div class='title'>"+
+									"<dl>"+
+										"<dt class='col35 appName'>"+appitem.name+"</dt>"+
+										"<dd class='star'></dd>"+
+										"<dd class='col35'>"+appitem.size+"M</dd>"+
+									"</dl>"+
+								"</div>"+
+								"<div style='clear:both;'></div>"+
+							"</div>"+
+							"<div class='info'>"+
+								"<p class='info-title col35'>应用信息</p>"+
+								"<p class='info-cont'>"+appitem.intro+"</p>"+
+								"<a href='javascript:void(0)' id='te' class='mone'>详情</a>"+
+							"</div>"+
+							"<p class='download ios'><a href='"+appitem.iosurl+"' onclick = \"ajaxClick('"+appitem.name+"',$(this))\">下载安装</a></p>"+
+							"<p class='download android'><a href='"+appitem.androidurl+"' onclick =\"ajaxClick('"+appitem.name+"',$(this))\">下载安装</a></p>";
+							if("fl" == app_content_flfr)
+							{
+								itemcontent +="<div class='line'></div>";
+							}
+						itemcontent +="</div>";
+						
+						if("fl" == app_content_flfr)
+						{
+							app_content_flfr = "fr";
+						}
+						else
+						{
+							app_content_flfr="fl";
+						}
+	 		}//结束j循环
+	 		itemcontent +="<div class='clear'></div></li>";
+	 		if(itemyouxiaonum > 0)
+	 		{
+	 			content +=itemcontent;
+	 		}
+	 		
+	 	}//结束i循环
+	 	
+	 	$("#appul").html(content);
+	 	initData();
+	});
+
+
+}
+
+
+
+//检查是安卓还是ios设备
+function checkBrowserType()
+{
+	if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) 
+	{
+		return "ios";
+	}
+	else if (browser.versions.android) 
+	{
+		return "android";
+	}
+	else{
+		return "pc";
+	}
+}
+
+
+
+
+//设置不同移动设备显示内容
+function initData()
+{
+
+			if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+				var ios = document.getElementsByClassName('ios');
+				for(var i=0;i<ios.length;i++){
+					ios[i].style.display = 'block';
+				}	
+				$(".info-cont").each(function(){
+					$(this).addClass("ios");
+				});
+				$(".app-content").each(function(){
+					$(this).css("height","270px");
+				});
+				$(".mone").each(function(){
+					$(this).bind("click",function(){
+						if($(this).hasClass("active")){
+							$(this).siblings(".info-cont").css("height","50px");
+							$(this).html("详情");
+							$(this).removeClass("active");
+						}else{
+							$(this).siblings(".info-cont").css("height","110px");
+							$(this).html("收起");
+							$(this).addClass("active");
+						}
+					});
+				});
+			}
+			if (browser.versions.android) {
+				var android = document.getElementsByClassName('android');
+				for(var i=0;i<android.length;i++){
+					android[i].style.display = 'block';
+				}
+				$(".info-cont").each(function(){
+					$(this).addClass("android");
+				});
+				$(".app-content").each(function(){
+					$(this).css("height","240px");
+				});
+				$(".mone").each(function(){
+					$(this).bind("click",function(){
+						if($(this).hasClass("active")){
+							$(this).siblings(".info-cont").css("height","42px");
+							$(this).html("详情");
+							$(this).removeClass("active");
+						}else{
+							$(this).siblings(".info-cont").css("height","100px");
+							$(this).html("收起");
+							$(this).addClass("active");
+						}
+					});
+				});
+			}
+			
+}
+
+
+
+function isEmpty(str)
+{
+	if(null == str || "" == str || undefined == str || "null" == str)
+	{
+		return true;
+	}
+	return false;
+}
+
+function ajaxClick(name,e){
+				//if(e.attr('href') == "#"){alert('抱歉，看美女栏目的IOS用户目前只支持下载九秀美女直播')}
+				$.ajax({
+					url:'../rest/addappclick',
+				    data: {sta_appclick_key:encodeURI("DOWNLOAD_"+name), sta_appclick_type:'DOWNLOAD',sta_appclick_content:encodeURI(name),tv_sta_devicetype:'web'}
+				});
+			}
+
+
+</script>
+</body>
+</html>

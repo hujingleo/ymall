@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE HTML>
+<html leng = "en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="Author" content=""/>
+		<meta name="Keywords" content=""/>
+		<meta name="Description" content=""/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+		<title></title>
+		<link rel="stylesheet" href="../css/zxgc/css/common.css"/>
+	</head>
+	<body>
+		<div class="main" id = "portal" style="display:none">
+			<div class="portal-content">
+				<div class="logo">
+					<img src="../css/zxgc/images/logo.png" width="200px" height="90"/>
+				</div>
+				<div class="title">
+					<img src="../css/zxgc/images/title.png" width="300px" height="30"/>
+				</div>
+				<div class="guide">
+					<dl>
+						<dd>
+							<div class="left ">
+								<img src="../css/zxgc/images/-1F.png" width="70" height="50" />
+							</div>
+							<div class="left text">
+								<ul>
+									<li>必胜客&nbsp;/</li>
+									<li>华润万家超市&nbsp;/</li>
+									<li>服装</li>
+									<li>手表皮具&nbsp;/</li>
+									<li>皮鞋&nbsp;/</li>
+									<li>黄金首饰</li>
+								</ul>
+							</div>
+						</dd>
+						<dd>
+							<div class="left">
+								<img src="../css/zxgc/images/1F.png" width="70" height="50" />
+							</div>
+							<div class="left text">
+								<ul>
+									<li>苏宁电器&nbsp;/</li>
+									<li>现代服饰&nbsp;/</li>
+									<li>食必饱</li>
+									<li>汤米男孩</li>
+								</ul>
+							</div>
+						</dd>
+						<dd>
+							<div class="left ">
+								<img src="../css/zxgc/images/2F.png" width="70" height="50" />
+							</div>
+							<div class="left text">
+								<ul>
+									<li>8D 8D电影体验馆&nbsp;/</li>
+									<li>女装&nbsp;/</li>
+									<li>童装</li>
+									<li>内衣&nbsp;/</li>
+									<li>美容美甲&nbsp;/</li>
+									<li>杏记甜品 等</li>
+								</ul>
+							</div>
+						</dd>
+						<dd>
+							<div class="left ">
+								<img src="../css/zxgc/images/3F.png" width="70" height="50" />
+							</div>
+							<div class="left text">
+								<ul>
+									<li>中鑫国际影城&nbsp;/</li>
+									<li>川粤味徕火锅城</li>
+									<li class="margin">百味黄记煌</li>
+								</ul>
+							</div>
+						</dd>
+					</dl>
+				</div>
+				<div class="weixin">
+					<img src="../css/zxgc/images/weixing.png" width="120" height= "120" />
+				</div>
+			</div>
+			<div class="button" id="open"></div>
+			<script>
+				document.getElementById("open").onclick = function(){
+					document.getElementById("loginPg").style.display = "block";
+					document.getElementById("portal").style.display = "none";
+				}
+			</script>
+		</div>
+		<div class="login" id="loginPg" style="display:none">
+			<div class="content">
+				<div class="loginLogo">
+					<img src="../css/zxgc/images/loginLogo.png" width="200px" height="150"/>
+				</div>
+				<div class="formcontainer">
+					<div class="formalignbottom">
+						<div class="formheader"></div>
+						<div class="formbg">
+							<div class="formcontent">
+								<div class="leftlogin">
+									<form id="loginFrm" action="http://newymall.iyouxin.com:8080/rest/signwififorportal" method="get">
+										<div class="form-username formfield mb10"><input class="h30" type="text" name="username" id="username"  placeholder="请输入您的手机号码"/><input type="button" id="send" value="发送验证码" onclick="sendcode();" /> </div>
+										<div class="form-password formfield mb15"><input class="h30" type="password" id="password" name="password" placeholder="请输入您的验证码" /></div>
+										<div class="formbutton">
+											<div id="errormsg" style="color:red">${errormsg}</div>
+											<div class="ybtn btn fl h40" onclick="loginBtnClick();">一键登录上网</div>	
+										</div>
+										
+										<div style="display:none;">	
+											<input type="hidden" name="method" value="login"/>
+											<input type="hidden" name="param" value="true"/>
+											<input type="hidden" name="wlanuserip" value="${wlanuserip}"/>
+											<input type="hidden" name="wlanacname" value="${wlanacname}"/>
+											<input type="hidden" name="ssid" value="${ssid}"/>
+											<input type="hidden" name="nasip" value="${nasip}"/>
+											<input type="hidden" name="mac" value="${mac}"/>
+											<input type="hidden" name="t" value="${t}"/>
+											<input type="hidden" name="apmac" value="${apmac}"/>
+											<input type="hidden" name="url" value="${url}"/>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="info">
+					<dl>
+						<dt>现接受洽谈的项目及品类如下：</dt>
+						<dd>1、化妆品</dd>
+						<dd>2、翡翠玉器、饰品、品牌手表</dd>
+						<dd>3、品牌服饰、休闲服饰及鞋类大型专卖或特卖</dd>
+						<dd>4、休闲小食、各地风味餐厅，知名品牌餐饮</dd>
+					</dl>
+				</div>
+				<p class="tel font">招商热线：82687333</p>
+				<p class="font">商场强势升级 品牌调整 现有少量旺铺出租</p>
+			</div>
+		</div>
+		<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+		<script>
+			$(document).ready(function () {
+				var errorMsg = "${errormsg}";
+				if("null" != errorMsg && null != errorMsg && ""!= errorMsg && undefined != errorMsg)
+				{
+					document.getElementById("loginPg").style.display = "block";
+					document.getElementById("portal").style.display = "none";
+				}
+				else
+				{
+					document.getElementById("loginPg").style.display = "none";
+					document.getElementById("portal").style.display = "block";
+				}
+			});
+			
+			var countdown=60;
+			function settime()
+			{ 
+				var val = document.getElementById("send");
+				if (countdown == 0) { 
+					val.removeAttribute("disabled"); 
+					clearInterval(t);
+					val.value="发送验证码"; 
+					countdown = 60; 
+				} else { 
+					var t = setTimeout(function() { 
+						val.setAttribute("disabled", true); 
+						val.value="重新发送(" + countdown + ")s"; 
+						countdown--; 
+						settime(val);
+					},1000);
+				} 
+				
+			} 
+			
+			function sendcode()
+			{
+				var mobile = $("#username").val();
+				var regip = '${wlanuserip}';
+				var regapmac = '${apmac}';
+				if(/^(13[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/.test(mobile)==false) 
+				{
+					alert("请输入正确的电话号码");
+					return false;
+				}
+				settime();
+				var r = Math.floor(Math.random() * 9999 + 1);
+				var params = {r:r,mobile:mobile,regip:regip,regapmac:regapmac};
+				var url = "../specialRegisterForViptype2";
+				$.getJSON(url,params,function(data) {
+				 	if(1 == data.result)
+				 	{
+				 		alert(data.data);
+				 	}
+				 	else if(2 == data.result)
+				 	{
+						alert(data.message);
+				 	}
+				});
+			}
+			
+			//登录
+			function loginBtnClick() {
+				var user = document.getElementById("username");
+				var passw = document.getElementById("password");
+				var errorMsg = $("#errormsg");
+				if (user.value == "" || user.value == "请输入您的账号") {
+					
+					errorMsg.html('请输入您的账号');
+				} else if (passw.value == "" || passw.value == "请输入您的验证码") {
+					
+					errorMsg.html('请输入您的验证码');
+				} else {
+					errorMsg.html('');
+					if($("#remeberme:checked").val()=='on'){
+						$.cookie('username',user.value);
+						//$.cookie('password',passw.value);
+					
+					}
+					else{
+						$.cookie('username','');
+						//$.cookie('password','');
+					}
+					$('#loginFrm').submit();
+				}
+			}
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!--#set(AppHtml apphtml)-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>${apphtml.otitle}</title>
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style type="text/css">
+body,
+html,
+div,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+br{
+	padding:0;
+	margin:0;
+}
+img{
+	width:100%;
+}
+.content{
+	
+}
+a{
+	text-decoration:none;
+	color:#333;
+}
+</style>
+</head>
+
+<body >
+	<div class="content">
+	$!{apphtml.ocontent}
+	</div>
+</body>
+
+</html>

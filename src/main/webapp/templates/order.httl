@@ -1,0 +1,56 @@
+<!--#set(String contextpath=request.getContextPath())-->
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>充值</title>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="${contextpath}/css/content.css" type="text/css">
+
+</head>
+<body style="background: #fff;">
+<div class="wrapper">
+    <header><div class="navigationBar"><a class="icon-font" href="javascript:history.go(-1);">D</a>充值</div></header>
+    <section>
+        <form class="pay-in">
+        	<label>账户余额：</label><input type="text" placeholder="￥0.00" value="" /><span>元</span>
+            <label>充值金额：</label><input type="text" placeholder="￥0.00" value="" /><span>元</span>
+        </form>
+    </section>
+    <section>
+        <form id="selectpay" action="submitpay" method="POST" class="pay-ch bor-top">
+			<input type="hidden" name="flowid" value="${flowid}"/>
+            <div class="pay-title">选择支付方式：</div>
+            <div class="form-con">
+                <i><img src="${contextpath}/images/icon-pay-y.png" /></i>
+                <p><span>支付宝</span></br>推荐有支付宝客户端的用户使用！</p>
+                <input name="pay" type="radio" value="alipay" />
+            </div>
+           
+            <div class="form-con">
+                <a class="pay-btn" href="javascript:doSubmit();">立即充值</a>
+            </div>
+        </form>
+    </section>
+</div>
+<!--JS-->
+<script type="text/javascript" src="${contextpath}/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="${contextpath}/js/main.js"></script>
+<script type="text/javascript">
+	var submiting=false;
+	function doSubmit(){
+		if(submiting==false){
+			var pay=$("input[name='pay'][checked]").val();
+			$('#selectpay').submit();	
+		}
+		else{
+			
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+<style type="text/css">
+body{
+	height:100%;
+}
+.bgcenter{
+		margin: 0px auto;
+		width:100%;
+		
+		min-height:700px;
+}
+.header{
+	height:100%;
+		width:100%;
+		background-image:url('/images/loginbg.png');
+		background-repeat:no-repeat;
+		background-position:0px 100%;
+}
+
+
+	.loginform{
+				
+	}
+	.left{
+		float:left;
+	}
+	
+	.formheader{
+		background:url('/images/loginbt.png') no-repeat 0px -10px;
+		height:60px;
+		width:636px;
+		z-index:100;
+		position:absolute;
+	}
+	.formcontainer{
+		width:620px;
+		height:224px;
+
+  margin: 0px auto;
+  
+	}
+	.formalignbottom{
+		width:620px;
+		position:absolute;
+		bottom:70%;
+	}
+	.tcenter{
+		text-align:center;
+	}
+	.formbg{
+		background-color:white;
+		width:100%;
+		height:256px;
+		position:absolute;
+		left:16px;
+		padding-top:60px;
+		
+	}
+	.form-username{
+		background:url('/images/loginbt.png') transparent no-repeat 0px -88px;
+	}
+	.form-password{
+		background:url('/images/loginbt.png') transparent no-repeat 0px -130px;
+	}
+	.formfield{
+		border:1px solid #D1D1D1;
+		border-radius:3px;
+		width:100%;
+		margin-top:10px;
+		
+		margin-left:28px;
+		margin-right:28px;
+	}
+	.formfield input{
+		margin-left:45px;
+		border:none;
+		height:30px;
+	}
+	.formbutton{
+		margin-top:10px;
+		
+		margin-left:28px;
+		margin-right:28px;
+		width:100%;
+	}
+	.leftlogin{
+		width:300px;
+		
+	}
+	.rightlogin{
+		
+		margin-left:40px;
+		width:260px;
+		position: absolute;
+  bottom: 15px;
+  right: 0px;
+	}
+	.company{
+		font-size:10px;
+		
+	}
+	.ybtn{
+		padding:15px;
+		background-color:#0EBCF7;
+		border-radius:5px;
+		text-align:center;
+		color:white;
+	}
+	.ycontainer{
+		margin-top:10px;
+	}
+	.logoheader{
+		width:1024px;
+		margin:0px auto;
+	}
+	.logo{
+		background-image:url('/images/loginbt.png');
+		background-position:0px -236px;
+		background-repeat:no-repeat;
+		width:100%;
+		height:127px;
+	}
+	.downloadarea{
+		width:320px;
+		position:absolute;
+		bottom:10%;
+		right:10%;
+	}
+	.errormsg{
+		margin-left:28px;
+		color:red;
+	}
+</style>
+</head>
+
+<body >
+<div class="bgcenter header">
+	登录成功
+	<a href="http://192.168.3.101:8081/tuserbysessionid?sessionid=${sessionid}">下线</a>
+</div>
+	
+</body>
+<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/js/commonlogin.js"></script>
+
+<script type="text/javascript">
+	setTimeout(function(){window.location='http://www.iyouxin.com';},1000);
+</script>
+</html>

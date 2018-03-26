@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>有啊wifi-登录</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+</head>
+<style>
+	body,html,div,a,img,p,span,form,input,ul,li,dl,dd,dt,button{margin:0;padding:0;}
+	body,html{width:100%;height:100%;font-size:16px;}
+	a{
+		text-decoration:none;
+		color:#000;
+	}
+	input,
+	button,
+	img
+	{
+		outline:none;
+		border:none;
+	}
+	button{
+		-webkit-appearance: none;
+	}
+	li{
+		list-style:none;
+	}
+	.fl{
+		float:left;
+	}
+	.fr{
+		float:right;
+	}
+	.h40{
+		height:40px;
+		line-height:40px;
+	}
+	.h30{
+		height:30px;
+		line-height:30px;
+	}
+	.mb20{
+		margin-bottom:20px;
+	}
+	.mt20{
+		margin-top:20px;
+	}
+	.mb10{
+		margin-bottom:10px;
+	}
+	.mb15{
+		margin-bottom:15px;
+	}
+	.bg{
+		background-size:0 100%;
+		width: 100%;
+		height: 100%;
+		min-height: 500px;
+		position: relative;
+		background:#F1F1F1;
+		/*background: -webkit-gradient(linear, 0 0, 0 100%, from(#82CCFD), to(white));*/
+	}
+	.content{
+		padding:0 20px;
+	}
+	.hint{
+		background:#ffea00;
+		color:#f00;
+		font-size: 1.1em;
+		padding:5px;
+	}
+	.logoheader{
+		width:100%;
+		height:100px;
+	}
+	.logo{
+		width:30%;
+		height:100%;
+	}
+	.logo img{
+		width:100%;
+		height:100%;
+	}
+	.tel{
+		width:69%;
+		height:100%;
+		position:relative;
+	}
+	.tel .tel-box{
+		width:100%;
+		position:absolute;
+		top:25%;
+		left:0;
+		font-size:16px;
+	}
+	.tel .tel-box p{
+		height:25px;
+		line-height:25px;
+		text-align:right;
+	}
+	.tel .tel-box p a{
+		color:#000;
+	}
+	.formfield{
+		width:100%;
+		background:#fff;
+		border:1px solid #bbb;
+	}
+	
+	.formfield input{
+		width:80%;
+		padding:5px 15px;
+		border:none;
+		font-size:16px;
+	}
+	#remeberme{
+		vertical-align:-webkit-baseline-top;
+	}
+	.formbutton{
+		width:100%;
+		height:40px;
+	}
+	.formbutton .btn{
+		width:45%;
+		text-align:center;
+		border-radius:5px;
+	}
+	.formbutton .ybtn{
+		color:#fff;
+		background:#2882D8;
+	}
+	.formbutton .rbtn{
+		background:#45C01A;
+	}
+	.formbutton .rbtn a{
+		width:100%;
+		height:100%;
+		display:block;
+		color:#fff;
+	}
+	.downloadarea{
+		width:100%;
+		height:140px;
+		background:#2882D8;
+		border-radius:8px;
+	}
+	.downIco{
+		width:55%;
+		height:100%;
+		border-right:1px solid #ccc;
+	}
+	/*.downIco ul{
+		padding-top:5px;
+	}
+	.downIco ul li{
+		color:#fff;
+		text-indent:20px;
+	}
+	.downIco ul li.down{
+		text-indent:0px;
+		margin:0 10px;
+	}*/
+	.downIco dl{
+		padding-top:5px;
+	}
+	.downIco dl dd{
+		color:#fff;
+		text-indent:20px;
+	}
+	.downIco dl dt{
+		text-indent:0px;
+		margin:0 10px 5px 10px;
+	}
+	#btnDownload{
+		width:100%;
+		height:35px;
+		background:url('/images/downBtn.png') no-repeat;
+		background-size:100% 100%;
+	}
+	.weixin{
+		width:44%;
+		height:100%;
+	}
+	.weixin-ico{
+		height:100%;
+		padding:10px;
+		font-size:10px;
+		color:#fff;
+	}
+	.weixin-ico p{
+		width:100%;
+		text-align:center;
+	}
+	.weixin-ico p.bTxt{
+		font-size:13px;
+	}
+	.footer{
+		text-indent:20px;
+		color:#bbb;
+		font-size:14px;
+	}
+	#errormsg{
+		color:#f00;
+	}
+ </style>
+
+<body>
+<div class="bg">
+		<div><p class="hint">温馨提醒:为防范钓鱼WIFI,保障上网安全,我司后续将关闭网页认证功能,请通过"优信无限"APP登录上网,以免网银账号等重要信息被盗。</p></div>
+		<div class="content">
+			<div class="logoheader mb10 mt20">
+				<div class="logo fl">
+					<img src='/images/logo.png'/>
+				</div>
+				<div class="tel fr">
+					<div class="tel-box">
+						<p><a href="tel:400-114-1860">客服电话：400-114-1860</a></p>
+						<p>客服QQ：400 114 1860</p>
+					</div>
+				</div>
+			</div>
+			<div class="formcontainer">
+				<div class="formalignbottom">
+					<div class="formheader"></div>
+					<div class="formbg">
+						<div class="formcontent">
+							<div class="leftlogin">
+								<form id="loginFrm" action="http://newymall.iyouxin.com:8080/rest/signwififorportal" method="get">
+									<div class="form-username formfield mb10"><input class="h30" type="text" name="username" id="username"  placeholder="请输入您的手机号码"/></div>
+									<div class="form-password formfield mb15"><input class="h30" type="password" id="password" name="password" placeholder="请输入您的密码" /></div>
+									<div class="formbutton">
+										<div class="ybtn btn fl h40" onclick="loginBtnClick();">登&nbsp;&nbsp;&nbsp;录</div>
+										<div class="rbtn btn fr h40"><a href="http://newymall.iyouxin.com:8080/register">注&nbsp;&nbsp;&nbsp;册</a></div>
+									</div>
+									<div class="formbutton mb10">
+										<div class='fl h40'>
+											<input name="remember" checked="true" id="remeberme" type="checkbox"/><label for="remeberme">记住密码</label>
+										</div>	
+										<a class='fr h40' href="http://newymall.iyouxin.com:8080/findpassword">找回密码</a>
+									</div>
+									<div id="errormsg" class="mb10">${errormsg}</div>				
+								<div style="display:none;">				
+										<input type="hidden" name="method" value="login"/>
+										<input type="hidden" name="param" value="true"/>
+										<input type="hidden" name="wlanuserip" value="${wlanuserip}"/>
+										<input type="hidden" name="wlanacname" value="${wlanacname}"/>
+										<input type="hidden" name="ssid" value="${ssid}"/>
+										<input type="hidden" name="nasip" value="${nasip}"/>
+										<input type="hidden" name="mac" value="${mac}"/>
+										<input type="hidden" name="t" value="${t}"/>
+										<input type="hidden" name="apmac" value="${apmac}"/>
+										<input type="hidden" name="url" value="${url}"/>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="downloadarea mb10">
+				<div class='downIco fl'>
+					<dl>
+						<dt><p id="btnDownload" onclick="downloadapp();" class='btn btn-info btn-sm downloadapp'></p></dt>
+						<dd>1.充值缴费</dd>
+						<dd>2.便捷上网</dd>
+						<dd>3.赚金币兑网费</dd>
+						<dd>4.送乐视电视</dd>
+					</dl>
+				</div>
+				<div class='weixin fr'>
+					<div class="weixin-ico">
+						<img src='/images/portal.png' width='100%' height='90%'/>
+					</div>		
+				</div>	
+			</div>
+		</div>
+		<div class="footer h40">版权所有：广东优信通信有限公司</div>
+	</div>
+</body>
+<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/js/commonlogin.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js">
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.bg').height($(document).height());
+	});
+	$(document).ready(function(){
+		$('#btnGetCheck').on('click',getCheck);
+		$('#username').val($.cookie('username'));
+		$('#password').val($.cookie('password'));
+	});
+</script>
+</html>

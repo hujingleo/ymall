@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+</head>
+
+<body>
+
+
+	<script type="text/javascript">
+		 var isAndroid=navigator.userAgent.match(/android/ig),
+		isIos=navigator.userAgent.match(/iphone|ipod/ig),
+		isIpad=navigator.userAgent.match(/ipad/ig),
+		weixin=navigator.userAgent.match(/MicroMessenger/ig);
+		if(isAndroid){
+			window.location='http://www.pgyer.com/youaandroid';
+		}
+		else if(isIos||isIpad){
+			window.location='http://www.pgyer.com/youaios';			
+		}
+	</script>
+</body>
+</html>

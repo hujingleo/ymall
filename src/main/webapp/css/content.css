@@ -1,0 +1,158 @@
+/* CSS Document */
+body,ul,li,h1,h2,h3,h4,h5,h6,input,textarea,form{ margin:0; padding:0; list-style:none; font-family:'\5FAE\8F6F\96C5\9ED1'; font-size:1em; font-weight:400;}
+img{ border:0;}
+a{ text-decoration:none;}
+div{display: block;}
+body{background: #f1f1f1;}
+
+.wrapper{width:100%;max-width:720px;display:block;margin:0 auto;overflow:hidden;position:relative;}
+/*导航栏*/
+.navigationBar{width: 100%;height:2.2em;line-height:2.2em;text-align: center; color: #fff;font-size: 1.2em;background: #fea100;position: relative;overflow: hidden;}
+.navigationBar a{font-style: normal;position: absolute;left: 10px;font-size: 1.5em;color: #fff;}
+
+@font-face {
+    font-family: 'baishang';
+    src: url('../fonts/baishang.eot');
+    src: url('../fonts/baishang.woff') format('woff'), url('../fonts/baishang.ttf') format('truetype'), url('../fonts/baishang.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.icon-font{font-family: 'baishang';}
+
+
+/*账户信息*/
+.account{background: #fff;width: 100%;box-sizing: border-box;line-height: 40px;position: relative;}
+.ac-name{color: #999;display: inline-block;margin:0 30px 0 2%;}
+.ac-money{color: #999;display: inline-block;}
+.ac-prompt{line-height: 30px;color: #999;background: #fff;box-sizing: border-box;padding: 1% 2%;font-size: .9em;}
+.account span{color: #fea100;}
+.account em{font-style: normal;color: #333;}
+.top-up{width: 8%;height: auto;position: absolute;right: 10px;top:8px;}
+.top-up img{width: 100%;height: auto;display: block;}
+
+
+/*套餐选择*/
+.package{width:100%;background: #fff;box-sizing: border-box;padding: 3%;overflow: hidden;}
+.pa-ul{width:100%;overflow: hidden;}
+.pa-ul li{width: 30.3%;height:70px;box-sizing:border-box;text-align: center;border-radius: 3px;padding: 2%;display: inline-block;margin-right: 3%;float: left;border: 1px solid #c5c5c5;margin-top:10px;}
+.pa-ul li:last-child{float: right;margin-right: 0;}
+.pa-ul .li-1{ color: #999;overflow: hidden;}
+.pa-ul .li-1 span{color: #B5D258;font-size: 1.5em;display: block;line-height: 30px;}
+.pa-ul .li-2{color: #999;overflow: hidden;}
+.pa-ul .li-2 span{color: #4FB0C1;font-size: 1.5em;display: block;line-height: 30px;}
+.pa-ul .li-3{color: #999;overflow: hidden;}
+.pa-ul .li-3 span{color: #3B69C1;font-size: 1.5em;display: block;line-height: 30px;}
+.pa-ul .li-4{color: #999;overflow: hidden;}
+.pa-ul .li-4 span{color: #6766C1;font-size: 1.5em;display: block;line-height: 30px;}
+.pa-ul .li-5{color: #999;overflow: hidden;}
+.pa-ul .li-5 span{color: #B44D8B;font-size: 1.5em;display: block;line-height: 30px;}
+.pa-ul .li-6{color: #999;overflow: hidden;}
+.pa-ul .li-6 span{color: #C13B48;font-size: 1.5em;display: block;line-height: 30px;}
+.pa-ul .li-activ-1{background: #B5D258;border:1px solid #B5D258;color: #fff;}
+.pa-ul .li-activ-2{background: #4FB0C1;border:1px solid #4FB0C1;color: #fff;}
+.pa-ul .li-activ-3{background: #3B69C1;border:1px solid #3B69C1;color: #fff;}
+.pa-ul .li-activ-4{background: #6766C1;border:1px solid #6766C1;color: #fff;}
+.pa-ul .li-activ-5{background: #B44D8B;border:1px solid #B44D8B;color: #fff;}
+.pa-ul .li-activ-6{background: #C13B48;border:1px solid #C13B48;color: #fff;}
+.pa-ul .li-activ-1 span,.pa-ul .li-activ-3 span,.pa-ul .li-activ-2 span,.pa-ul .li-activ-4 span,.pa-ul .li-activ-5 span,.pa-ul .li-activ-6 span{color: #fff;}
+
+.package .btn{box-sizing: border-box;width: 100%;margin-top: 20px;}
+.package .btn a{display: block;line-height: 50px;color: #fff;background: #5fbeff;border-radius: 3px;text-align: center;}
+
+.slider{display:none;}/*用于获取更加体验*/
+.focus span{width:10px;height:10px;margin-right:10px;border-radius:50%;background:#666;font-size:0}
+.focus span.current{background:#fff}
+
+/*网址导航*/
+.inlink {background:#fff;overflow: hidden;}
+.inlink li {box-sizing: border-box;display: inline-block;float: left;text-align: center;line-height: 1.5em;font-size: .9em}
+.inlink li a {display: block;padding: 8px 0;color: #333;}
+.inlink li i {display: inline-block;width: 25%;margin-right: 5px;vertical-align: middle}
+.inlink li i img {width: 100%;height: auto}
+
+.ablock {overflow: hidden;background: #fff;}
+.ablock-title {padding: 8px 5px;}
+.ablock-title span{color:#fea100;border-left: 3px solid #fea100;padding-left: 5px;}
+.outlink {border: 1px solid #ddd;border-bottom: 0;border-left:0;overflow: hidden}
+.outlink ul {margin-right: -1px;border-bottom: 1px solid #ddd;overflow: hidden}
+.outlink li {box-sizing: border-box;border-right: 1px solid #ddd;margin-bottom: -1px;display: inline-block;float: left;text-align: center;line-height: 1.5em;font-size: .9em}
+.outlink li:last-child {border-right: 0}
+.outlink li a {display: block;padding: 8px 0;color: #333;}
+.outlink li i {display: inline-block;width: 25%;margin-right: 5px;vertical-align: middle}
+.outlink li i img {width: 100%;height: auto}
+
+/*充值*/
+.pay-in{padding:15px 10px;color: #333;}
+.pay-in input{background: #fff;border: 1px solid #999;border-radius: 3px;padding:5px;display:inline-block;box-sizing: border-box;vertical-align: middle;}
+.pay-in span{margin-left: 5px;}
+
+.pay-ch{padding:15px 10px;}
+.pay-title{color: #333;}
+.form-con{overflow: hidden;width: 100%;}
+.form-con i{width: 10%;display: inline-block;vertical-align: middle;}
+.form-con i img {width: 100%;height: auto;display: block;}
+.form-con span{color: #333;}
+.form-con p{color: #999;font-size: 0.8em;line-height:20px;vertical-align: middle;display: inline-block;}
+.form-con input{width: 10px;height: 10px;vertical-align: middle;}
+.form-con .pay-btn{width:100%;height: 35px;background: #fea100;line-height: 35px;display: block;color: #fff;text-align: center;margin-top: 15px;border-radius: 3px;}
+.form-con .pay-money{float: right;color: #333;font-size: 0.8em;display: inline-block;vertical-align: middle;}
+.form-con .pay-money b{font-size: 1.5em;color: #fea100;}
+.form-con .checkbox-inline p{margin-left: 0;}
+.hide{
+	display:none;
+}
+
+/*更多支付*/
+.pay-user{overflow: hidden;}
+.pay-user p{width:75%;vertical-align: middle;color: #333;display: inline-block;padding-left: 10px;}
+.pay-user p em{color: #999;font-style: normal;}
+.pay-user span{vertical-align: middle;width:15%;color: #fea100;display: inline-block;text-align: right;padding-right: 10px;}
+
+.form-fk{overflow: hidden;}
+.checkbox-inline{color: #666;font-size: 0.8em;}
+.checkbox-inline input{width: 1em;height: 1em;vertical-align: middle;margin-right: 5px;}
+.checkbox-inline span{color:red;}
+.checkbox-inline p{display: inline-block;}
+
+.bor{border: 1px solid #ddd;border-radius: 3px;box-sizing: border-box;}
+.bor-color{border: 2px solid #5fbeff;border-radius: 3px;box-sizing: border-box;}
+
+.form-con .pay-pass{width:100%;box-sizing:border-box;padding:15px 10px;background: #fff;border: 1px solid #999;border-radius: 3px;line-height: 1.8em;display: block;margin-left: 0;}
+
+/*支付结果*/
+.error{margin:5em auto 0 auto;text-align: center;}
+.error p{color: #666;}
+.error p span{color:red;}
+.error i{font-size: 13em;font-style: normal;color: #999;line-height: 25px;}
+.error .i-img{width: 40%;margin: 0 auto;}
+.error .i-img img{width: 100%;height: auto;display: block;}
+
+.a-jump{position: relative;margin: 0 auto;text-align: center;}
+.a-jump a{padding:10px;color: #fff;display: inline-block;margin: 0 auto;border-radius: 3px;}
+
+/*footer*/
+.foot{line-height:25px;text-align: center;color: #666;font-size: 0.6em;}
+
+/*--------------------公用----------------------*/
+.mr-b40{margin-bottom: 40px;}
+.mrg-t10{margin-top: 10px;}
+.mrg-t30{margin-top: 30px;}
+
+.left{float: left;}
+.right{float: right;}
+
+.pad-tb{padding: 10px 0;}
+.pad-10{padding: 10px;}
+
+.wid-p25 li {width: 25%}
+.wid60{width: 60%;}
+.mrg-b10{margin-bottom: 10px;}
+
+.bor-top{border-top: 1px solid #c5c5c5;}
+.bor-top-d{border-top: 1px dotted #ddd;}
+
+.a-green{background:#7DB500;}
+.a-or{background:#fea100;}
+
+/*@media screen and (max-width: 320px) {*/
+/*}*/

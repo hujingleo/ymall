@@ -1,0 +1,30 @@
+
+<!--#set(String contextpath=request.getContextPath())-->
+<!--#set(String pglj)-->
+<!--#set(String xzlj)-->
+<!--#set(com.youxin.ymall.entity.Advertisement adv)-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<script type="text/javascript" src="${contextpath}/js/jquery-1.10.2.min.js"></script>
+
+</head>
+
+<body>
+
+    <img src="${pglj}"/>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			window.location='${xzlj}';
+			
+		});
+		
+	</script>
+</body>
+</html>

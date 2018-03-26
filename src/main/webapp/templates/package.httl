@@ -1,0 +1,205 @@
+<!--#set(List<com.youxin.ymall.entity.Packagegroup> packages)-->
+<!--#set(AppUser appuser)-->
+<!--#set(String contextpath=request.getContextPath())-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href="${contextpath}/css/content.css" rel="stylesheet" type="text/css"/>
+
+</head>
+
+<body >
+<div class="wrapper">
+    <header><div class="navigationBar">购买套餐</div></header>
+    <section>
+        <div class="account">
+            <div class="ac-name">账户：<em>${username}</em> 余额:<em>${appuser.balance}</em> 元 金币：<em>${appuser.points}</em> 个</div>
+            <div class="ac-prompt">登录成功，无wifi时长请选择时长套餐购买</div>
+        </div>
+    </section>
+  
+
+    <section>
+        <div class="package">
+            <div class="pa-ul">
+                <ul>
+					#foreach(Packagegroup packagegroup :packages)
+						<li class="li-${for.index+1}" data="${packagegroup.groupid}" price="${packagegroup.price}"> <span>${packagegroup.price}元</span>${packagegroup.oname}</li>
+					#end
+                    
+                    <input type="hidden" name="packagegroupid" id="packagegroupid" value=""/>
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+  <section>
+	<div class="package">
+		<input type="hidden" name="balance" id="balance" value="${appuser.balance}"  />
+		<input type="hidden" name="iPoints" id="iPoints" value="${appuser.points}"  />
+		<input type="hidden" name="needpay" id="needpay" value=""  />
+		<input type="hidden" name="needcharge" id="needcharge" value=""  />
+        <form class="pay-in">
+			<h1 style="font-size:1.2em;">支付方式</h1>
+			<div>
+        	<input type="checkbox" checked="true" readonly="true" disabled="true" placeholder="￥0.00"  /><label>账户余额：${appuser.balance}</label><span>元</span>
+			</div>
+			<div>
+				<input type="checkbox" id="cbUsePoints" value="usepoints"  />
+				<input type="text" style="display:none;" name="points" value="${appuser.points}" id="points" /><label>最多可使用金币：${appuser.points}</label><span>个</span>
+			
+			</div>
+			
+           
+            <div class="form-con hide" id="threepay">
+				 <div class="pay-title">选择支付方式：<span id="lblNeedcharge"></span></div>
+                <i><img src="${contextpath}/images/icon-pay-y.png" /></i>
+                <p><span>支付宝</span></br>推荐有支付宝客户端的用户使用！</p>
+                <input name="pay" type="radio" value="alipay" />
+            </div>
+			<div class="btn">
+				<input type="submit" value="购买上网套餐" />
+			 </div>
+			</div>
+        </form>
+		</div>
+    </section>
+	
+ 
+	<section>
+		<div class="package">
+		
+	</section>
+</div>
+<script type="text/javascript" src="${contextpath}/js/jquery-1.10.2.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".package li:first-child").click(function() {
+				$(this).addClass('li-activ-1').siblings().removeClass('li-activ-1 li-activ-2 li-activ-3 li-activ-4 li-activ-5 li-activ-6');
+			});
+			$(".package li").eq(1).click(function() {
+				$(this).addClass('li-activ-2').siblings().removeClass('li-activ-1 li-activ-2 li-activ-3 li-activ-4 li-activ-5 li-activ-6');
+			});
+			$(".package li").eq(2).click(function() {
+				$(this).addClass('li-activ-3').siblings().removeClass('li-activ-1 li-activ-2 li-activ-3 li-activ-4 li-activ-5 li-activ-6');
+			});
+			$(".package li").eq(3).click(function() {
+				$(this).addClass('li-activ-4').siblings().removeClass('li-activ-1 li-activ-2 li-activ-3 li-activ-4 li-activ-5 li-activ-6');
+			});
+			$(".package li").eq(4).click(function() {
+				$(this).addClass('li-activ-5').siblings().removeClass('li-activ-1 li-activ-2 li-activ-3 li-activ-4 li-activ-5 li-activ-6');
+			});
+			$(".package li").eq(5).click(function() {
+				$(this).addClass('li-activ-6').siblings().removeClass('li-activ-1 li-activ-2 li-activ-3 li-activ-4 li-activ-5 li-activ-6');
+			});
+			$(".bor").click(function() {
+				$(this).addClass('bor-color').siblings().removeClass('bor-color');
+			});
+			$('.pa-ul ul li').on('click',function(){
+				$('#packagegroupid').val($(this).attr('data'));
+				$('#needpay').val($(this).attr('price'));
+				checkpay();
+			});
+			$('#points').on('keyup',changepoints);
+			$('#points').on('keydown',checkinput);
+			$('#cbUsePoints').on('click',togglePoints);
+		});
+		
+		function checkpay(){
+			var balance=parseFloat($('#balance').val());
+			var needpay=parseFloat($('#needpay').val());
+			var cbUsePoints=$('#cbUsePoints');
+			var iPoints=parseInt($('#iPoints').val());
+			var points=parseInt($('#points').val());
+			if(isNaN(points)){
+				$('#points').val(0);
+				points=0;
+			}
+			else if(points<0){
+				$('#points').val(iPoints);
+				points=iPoints;
+			}
+			if(points>iPoints){
+				$('#points').val(iPoints);
+				points=iPoints;
+			}
+			if(cbUsePoints[0].checked){
+				var p2m=(points/100.0);
+				if(balance>=needpay){
+					$('#points').val(0);
+					$('#threepay').hide();
+				}
+				else if((p2m+balance)>needpay){
+					var usepoints=(needpay-balance)*100;
+					$('#points').val(usepoints);
+					$('#threepay').hide();
+				}
+				else if(p2m+balance==needpay){
+					$('#threepay').hide();
+				}
+				else{
+					var needcharge=needpay-balance-p2m;
+					$('#lblNeedcharge').html('还需充值'+needcharge+'元');
+					$('#threepay').show();
+				}
+				
+			}
+			else{
+				if(balance>=needpay){
+					$('#threepay').hide();
+				}
+				else{
+					var needcharge=needpay-balance;
+					$('#needcharge').val(needcharge);
+					$('#lblNeedcharge').html('还需充值'+needcharge+'元');
+					$('#threepay').show();
+				}
+			}
+		}
+		function togglePoints(event){
+			var packagegroupid=$('#packagegroupid').val();
+			if(packagegroupid==null||packagegroupid==''){
+				event.preventDefault();
+				alert('请先选择要购买的套餐');
+				
+				return;
+			}
+			if(this.checked){
+					$('#points').show();
+			}
+			else{
+				$('#points').hide();
+			}
+			checkpay();
+		}
+		function checkinput(e){
+			if(e.keyCode==8||(e.keyCode>=48&&e.keyCode<=57)||e.keyCode==37||e.keyCode==39)
+			{
+				
+			}
+			else{
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		}
+		function changepoints(e){
+			if(e.keyCode==8||(e.keyCode>=48&&e.keyCode<=57)||e.keyCode==37||e.keyCode==39)
+			{
+				checkpay();
+			}
+			else{
+				e.preventDefault();
+			}
+			
+		}
+		function buyVIPPackage(){
+			
+		
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	您的查询提交参数出现异常，异常原因:${errormsg}
+</body>
+</html>

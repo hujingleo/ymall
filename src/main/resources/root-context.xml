@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:p="http://www.springframework.org/schema/p" xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:cache="http://www.springframework.org/schema/cache" xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:redisson="http://redisson.org/schema/redisson"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+http://www.springframework.org/schema/util classpath:org/springframework/beans/factory/xml/spring-util-3.1.xsd 
+http://www.springframework.org/schema/cache classpath:org/springframework/cache/config/spring-cache-3.1.xsd
+http://mybatis.org/schema/mybatis-spring classpath:org/mybatis/spring/config/mybatis-spring-1.2.xsd 
+http://www.springframework.org/schema/tx classpath:org/springframework/transaction/config/spring-tx-3.1.xsd 
+http://www.springframework.org/schema/context classpath:org/springframework/context/config/spring-context-3.1.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://redisson.org/schema/redisson classpath:org/redisson/spring/support/redisson-1.0.xsd">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:property-placeholder
+			ignore-unresolvable="true" local-override="true"
+			location="classpath:application.properties" />
+	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true" />
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+	</bean>
+
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="failover:(tcp://localhost:61616)"/>
+	</bean>
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+		<property name="connectionFactory" ref="connectionFactory"/>
+	</bean>
+	<bean id="topicJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<property name="pubSubDomain" value="true" />
+		<property name="receiveTimeout" value="10000" />
+	</bean>
+
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		  destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- Connection Pooling Info -->
+		<property name="initialSize" value="${dbcp.initialSize}" />
+		<property name="maxActive" value="${dbcp.maxActive}" />
+		<property name="maxIdle" value="${dbcp.maxIdle}" />
+		<property name="defaultAutoCommit" value="true" />
+		<!-- 连接Idle一个小时后超时 -->
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="3600000" />
+		<property name="removeAbandoned" value="true"></property>
+		<property name="logAbandoned" value="true"></property>
+		<property name="testOnBorrow" value="true"></property>
+		<property name="testOnReturn" value="true"></property>
+		<property name="validationQuery" value="SELECT 1"></property>
+	</bean>
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<tx:annotation-driven />
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	</bean>
+	<!-- 扫描所有的组件 -->
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+
+	</bean>
+
+
+	<context:component-scan base-package="com.youxin.pay,com.youxin.ymall,com.youxin.yportal.service,com.youxin.portalservice.service,com.youxin.ymall.cache,com.youxin.ymall.cacheservice,com.youxin.pyq.service,com.youxin.ymanage.service,com.youxin.luosiding.service,com.youxin.luosiding.cacheservice,com.youxin.genjin.service,com.youxin.ysj.service" />
+	<mybatis-spring:scan template-ref="sqlSession"
+						 base-package="com.youxin.ymall.dao,com.youxin.pay.dao,com.youxin.portalservice.dao,com.youxin.ymanage.dao,com.youxin.luosiding.dao,com.youxin.xiaofu.dao,com.youxin.pyq.dao,com.youxin.genjin.dao" />
+<!--
+	<import resource="./modules/ggk-context.xml"></import>-->
+	<import resource="./modules/ecommerce-context.xml"></import>
+	<import resource="./modules/redisson-context.xml"></import>
+
+	<!-- redis配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+
+		<property name="maxIdle" value="100" />
+		<property name="maxTotal" value="500" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	<bean id="jedisConnFactory"
+		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		  p:use-pool="true">
+		<property name="usePool" value="true"></property>
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.pass}" />
+		<property name="timeout" value="${redis.timeout}" />
+		<property name="database" value="${redis.default.db}"></property>
+		<constructor-arg index="0" ref="jedisPoolConfig" />
+	</bean>
+	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		  p:connection-factory-ref="jedisConnFactory"></bean>
+	<bean class="com.youxin.ymall.cache.RedisCacheBean"></bean>
+	<bean id="springUtils" class="com.sslkg.utils.SpringUtils"></bean>
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		  p:connection-factory-ref="jedisConnFactory">
+		<property name="keySerializer">
+			<bean
+					class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+
+
+	</bean>
+
+
+
+	<!-- 定时器 每隔5分钟执行检查夺宝状态 -->
+	<!--<bean id="zntask_taskAutoCheckDuobaoProgram" class="com.youxin.ymall.controllers.DuobaoController"></bean> -->
+	<!--<bean id="ZntaskTopSaleJobDetail_taskAutoCheckDuobaoProgram" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+	<!--<property name="targetObject" ref="zntask_taskAutoCheckDuobaoProgram"></property> -->
+	<!--<property name="targetMethod" value="taskAutoCheckDuobaoProgram"></property> -->
+	<!--</bean> -->
+	<!--<bean id="zntaskTrigger_taskAutoCheckDuobaoProgram" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+	<!--<property name="jobDetail"> -->
+	<!--<ref bean="ZntaskTopSaleJobDetail_taskAutoCheckDuobaoProgram"/> -->
+	<!--</property> -->
+	<!--<property name="cronExpression"> -->
+	<!--<value>0 0/5 * * * ?</value>-->
+	<!--</property>       -->
+	<!--</bean> -->
+	<!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+	<!--<property name="triggers"> -->
+	<!--<list> -->
+	<!--<ref bean="zntaskTrigger_taskAutoCheckDuobaoProgram"/> -->
+	<!--</list>-->
+	<!--</property> -->
+	<!--</bean> -->
+
+
+	<!-- 定时器 每隔5分钟执行检查团购状态 -->
+	<!-- 		<bean id="zntask_taskAutoCheckGrouponProgram" class="com.youxin.ymall.controllers.GrouponController"></bean>
+        <bean id="ZntaskTopSaleJobDetail_taskAutoCheckGrouponProgram" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="zntask_taskAutoCheckGrouponProgram"></property>
+            <property name="targetMethod" value="taskAutoCheckGrouponProgram"></property>
+        </bean>
+        <bean id="zntaskTrigger_taskAutoCheckGrouponProgram" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail">
+                <ref bean="ZntaskTopSaleJobDetail_taskAutoCheckGrouponProgram"/>
+            </property>
+            <property name="cronExpression">
+                <value>0 0/5 * * * ?</value>
+            </property>
+        </bean>
+        <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+              <property name="triggers">
+            <list>
+                <ref bean="zntaskTrigger_taskAutoCheckGrouponProgram"/>
+            </list>
+              </property>
+        </bean>
+
+            定时器 每隔3分钟执行检查奖品余量状态
+            <bean id="zntask_taskAutoCheckErrorPrizeRemainProgram" class="com.youxin.ymall.controllers.LuckDrawController"></bean>
+        <bean id="ZntaskTopSaleJobDetail_taskAutoCheckErrorPrizeRemainProgram" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="zntask_taskAutoCheckErrorPrizeRemainProgram"></property>
+            <property name="targetMethod" value="taskAutoCheckErrorPrizeRemainProgram"></property>
+        </bean>
+        <bean id="zntaskTrigger_taskAutoCheckErrorPrizeRemainProgram" class="org.springframework.scheduling.quartz.CronTriggerBean">
+            <property name="jobDetail">
+                <ref bean="ZntaskTopSaleJobDetail_taskAutoCheckErrorPrizeRemainProgram"/>
+            </property>
+            <property name="cronExpression">
+                <value>0 0/3 * * * ?</value>
+            </property>
+        </bean>
+        <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+              <property name="triggers">
+            <list>
+                <ref bean="zntaskTrigger_taskAutoCheckErrorPrizeRemainProgram"/>
+            </list>
+              </property>
+        </bean>  -->
+
+</beans>

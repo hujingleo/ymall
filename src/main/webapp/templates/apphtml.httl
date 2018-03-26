@@ -1,0 +1,158 @@
+<!--#set(AppHtml apphtml)-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>${apphtml.otitle}</title>
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style type="text/css">
+body,
+html,
+div,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+br{
+	padding:0;
+	margin:0;
+}
+html,
+body{
+	width:100%;
+	height:100%;
+	background:#ededed;
+}
+ul li{
+	list-style:none;
+}
+ul li,
+ol li{
+	list-style-position:inside;
+	padding:0px 30px 0 30px;
+	line-height:20px;
+	list-style:none;
+}
+
+.bor a{
+	border:none;
+	padding:10px 0;
+}
+h1{
+	font-size:20px;
+}
+h2{
+	font-size:16px;
+	color:#828282;
+	border-bottom:1px solid #ccc;
+}
+a{
+	text-decoration:none;
+	color:#333;
+	display:block;
+	border-bottom:1px solid #ccc;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+	font-weight:normal;
+	text-indent:20px;
+	padding:15px 0;	
+}
+
+h2 i{
+	border:8px solid #ccc;
+	border-top:8px solid #fff;
+	border-right:8px solid #fff;
+	border-bottom:8px solid #fff;
+	position:absolute;
+	right:0;
+}
+h2  i.click{
+	border:8px solid #ccc;
+	border-left:8px solid #fff;
+	border-right:8px solid #fff;
+	border-bottom:8px solid #fff;
+	margin-right:7px;
+	margin-top:5px;
+}
+.wrapper {
+    width: 100%;
+    max-width: 720px;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    font-size:14px;
+}
+.newsheader {
+    color: #000;
+}
+.newscon{
+	color:#333;
+	background:#fff;
+}
+.column{
+	display:none;
+	border-bottom:1px solid #ccc;
+}
+</style>
+</head>
+
+<body >
+<div class="wrapper">
+		<div class="newsheader mrg-t20">
+            <h1>${apphtml.otitle}</h1>
+        </div>
+		<div class="newscon">
+			$!{apphtml.ocontent}
+		</div>
+	</div>
+<script type="text/javascript">
+	//每个ol中的最后一个li加个一个className
+	var listBoxs = document.getElementsByClassName("listBox");
+	for(var i=0;i<listBoxs.length;i++){
+		listBoxs[i].children[listBoxs[i].children.length-1].className = "bor";
+	}
+	var navs = document.getElementsByTagName("h2");
+	var shows = document.getElementsByClassName("column");
+	var icos = document.getElementsByTagName("i");
+
+	//给每个h2一个点击方法
+	for(var i=0;i<navs.length;i++){
+		navs[i].addEventListener("click",clickIco);
+	}
+	//点击方法
+	function clickIco(){
+		
+		var showBox = this.parentNode.children[1];
+		var ico = this.children[0].className;
+		var ComputedStyle = window.getComputedStyle(showBox,"");	
+		var dis = ComputedStyle.display;
+		if(dis == "none"){
+			showBox.style.display = "block"
+		}else{
+			showBox.style.display = "none";
+		}
+		if(ico == "navIcon"){
+			this.children[0].className = "click";
+		}else{
+			this.children[0].className = "navIcon";
+		}
+	}
+ </script>
+</body>
+
+</html>

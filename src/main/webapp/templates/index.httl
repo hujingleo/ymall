@@ -1,0 +1,27 @@
+<!--#set(Map<String,Object> map)-->
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+
+</head>
+<script type="text/javascript">
+	var url = "${map.get('wifi_portaltemplate_url')}";
+	if("" == url)
+	{
+		window.location='http://www.le.com/ptv/vplay/26011699.html?ref=wltx';
+	}
+	else
+	{
+		window.location=url;
+	}
+	
+	
+</script>
+<body >
+</body>
+</html>
